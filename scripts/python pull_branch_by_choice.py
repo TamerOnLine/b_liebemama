@@ -5,7 +5,7 @@ import os
 DB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "branches.db"))
 
 def main():
-    # الاتصال بقاعدة البيانات
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT id, name, type, description, status FROM branches ORDER BY id")
