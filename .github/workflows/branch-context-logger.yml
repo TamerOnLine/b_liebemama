@@ -1,0 +1,30 @@
+name: Custom Branch Workflow
+
+on:
+  push:
+    branches: [] # Specify branches to trigger on push, e.g., [your_branch_name_here]
+  pull_request:
+    branches: [] # Specify branches to trigger on pull request, e.g., [your_branch_name_here]      
+
+jobs: 
+  run-custom-tasks: 
+    runs-on: ubuntu-latest 
+    name: Custom tasks for your branch 
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v3 
+
+      - name: Log context information 
+        id: log 
+        run: |
+          echo "Engineer: ${{ github.actor }}" 
+          echo "Branch: ${{ github.ref_name }}" 
+          echo "Time (UTC): $(date -u)" 
+
+      - name: Add your custom tasks here 
+        run: |
+          echo "Run your tests, builds, or alerts here..."
+
+      - name: Log triggered by
+        run: |
+          echo "Triggered by: ${{ github.actor }}"
