@@ -1,0 +1,27 @@
+name: Branch Context Logger
+
+on:
+  push:         # Triggers on any push to any branch
+  pull_request: # Or any pull request
+
+jobs:
+  log-info:
+    runs-on: ubuntu-latest
+    name: Log Branch Info and Context
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get current UTC timestamp
+        id: get_time
+        run: echo "timestamp=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+
+      - name: Log Context Info
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch (ref): ${{ github.ref }}"
+          echo "Branch name: ${{ github.ref_name }}"
+          echo "Triggered by: ${{ github.actor }}"
+          echo "Event: ${{ github.event_name }}"
+          echo "Time: ${{ steps.get_time.outputs.timestamp }}"
+          echo "Commit: ${{ github.event.head_commit.message || 'N/A' }}"
